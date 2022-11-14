@@ -13,3 +13,7 @@
 > ros2 topic info /sexy_girl_money
 > ros2 topic pub /sexy_girl_money std_msgs/msg/UInt32 "{data: 20}" -1
 ```
+
+# TODO
+
+- https://www.bilibili.com/video/BV1gr4y1Q7j5?p=38&vd_source=d66d1a0aa1f1aea6a6386637292e894f
