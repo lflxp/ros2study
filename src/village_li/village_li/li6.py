@@ -21,6 +21,7 @@ class Node06(Node):
 
         # 创建订阅者
         self.account = 80
+        # 创建并初始化订阅者成员属性submoney
         self.submoney = self.create_subscription(UInt32,"sexy_girl_money",self.recv_money_callback,10)
 
     def timer_callback(self):
@@ -29,11 +30,14 @@ class Node06(Node):
         """
         msg = String()
         msg.data = "Hello %d World! %d" % (self.count,self.count)
-        self.pub_novel.publish(msg)
+        self.pub_novel.publish(msg) 
         self.get_logger().info("发布了一个章节的小说，内容是：%s" % msg.data)
         self.count += 1
 
     def recv_money_callback(self,money):
+        """
+        发布者回调函数
+        """
         self.account += money.data
         self.get_logger().info("收到%d的钱，账户里的钱%d" % (money.data,self.account))
 
