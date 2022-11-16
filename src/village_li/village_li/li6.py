@@ -1,6 +1,8 @@
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String,UInt32
+# 1. 导入服务接口
+from village_interfaces.srv import BorrowMoney
 
 # https://fishros.com/d2lros2/#/humble/chapt3/get_started/3.%E8%AF%9D%E9%A2%98%E4%B9%8BRCLPY%E5%AE%9E%E7%8E%B0?id
 # https://www.bilibili.com/video/BV1gr4y1Q7j5?p=33&spm_id_from=pageDriver&vd_source=d66d1a0aa1f1aea6a6386637292e894f
@@ -15,7 +17,7 @@ class Node06(Node):
         self.pub_novel = self.create_publisher(String,"sexy_girl",10)
 
         self.count = 0
-        self.timer_period = 1
+        self.timer_period = 5
         # 创建定时器
         self.timer = self.create_timer(self.timer_period,self.timer_callback)
 
@@ -23,6 +25,27 @@ class Node06(Node):
         self.account = 80
         # 创建并初始化订阅者成员属性submoney
         self.submoney = self.create_subscription(UInt32,"sexy_girl_money",self.recv_money_callback,10)
+
+        # 3. 声明并创建服务端
+        self.borrow_server = self.create_service(BorrowMoney,"borrow_money",self.borrow_money_callback)
+
+    # 2. 创建服务端的回调函数
+    def borrow_money_callback(self,request,response):
+        """
+            4. 编写回调函数的逻辑处理请求
+        """
+        self.get_logger().info("borrow_money_callback")
+        self.get_logger().info("收到来自：%s 的借钱请求，账户目前有: %d" % (request.name,self.account))
+        if request.money <= self.account * 0.1:
+            response.success = True
+            response.money = request.money
+            self.account = self.account - request.money
+            self.get_logger().info("借钱成功，借出: %d,目前还剩 %d"  % (response.money,self.account))
+        else:
+            response.success = False
+            response.money = 0
+            self.get_logger().info("借钱失败,现在手头紧，不能借给你！")
+        return response
 
     def timer_callback(self):
         """

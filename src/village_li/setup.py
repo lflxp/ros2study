@@ -24,6 +24,7 @@ setup(
             "li5=village_li.li5:main",
             "li6=village_li.li6:main",
             "li7=village_li.li7:main",
+            "li8=village_li.li8:main",
         ],
     },
 )

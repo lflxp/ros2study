@@ -54,4 +54,27 @@ ros2 interface show village_interfaces/srv/BorrowMoney
 ros2 interface show village_interfaces/srv/SellNovel 
 ros2 interface package village_interfaces
 https://www.bilibili.com/video/BV1gr4y1Q7j5/?p=46&spm_id_from=pageDriver&vd_source=d66d1a0aa1f1aea6a6386637292e894f
+RMW_IMPLEMENTATION=rmw_cyclonedds_cpp ros2 run village_li li7
+ros2 service list -t
+ros2 run village_li li6
+ros2 service call /borrow_money village_interfaces/srv/BorrowMoney "{name: 'fishros', money: 5}"
+rqt
+```
+
+# c++ service client
+
+```
+ros2 pkg create village_zhang --build-type ament_cmake --dependencies rclcpp
+colcon build
+ros2 run village_zhang zhang3_node
+ros2 run village_wanger wang2
+ros2 run village_li li6
+```
+
+# param 参数
+
+> https://www.bilibili.com/video/BV1gr4y1Q7j5?p=60&spm_id_from=pageDriver&vd_source=d66d1a0aa1f1aea6a6386637292e894f
+
+```
+ros2 param list
 ```
