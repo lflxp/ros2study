@@ -29,6 +29,9 @@ class Node06(Node):
         # 3. 声明并创建服务端
         self.borrow_server = self.create_service(BorrowMoney,"borrow_money",self.borrow_money_callback)
 
+        # 参数1. 声明参数
+        self.declare_parameter("writer_timer_period",5)
+
     # 2. 创建服务端的回调函数
     def borrow_money_callback(self,request,response):
         """
@@ -51,6 +54,8 @@ class Node06(Node):
         """
         定时回调函数
         """
+        timer_period = self.get_parameter("writer_timer_period").get_parameter_value().integer_value
+        self.timer.timer_period_ns = timer_period * (1000*1000*1000)
         msg = String()
         msg.data = "Hello %d World! %d" % (self.count,self.count)
         self.pub_novel.publish(msg) 
