@@ -77,4 +77,8 @@ ros2 run village_li li6
 
 ```
 ros2 param list
+ros2 param list /li6
+ros2 param get /li6 writer_timer_period
+ros2 param set /li6 writer_timer_period 1
+ros2 topic hz /sexy_girl
 ```
