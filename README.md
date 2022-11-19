@@ -107,3 +107,27 @@ ros2 action info /turtle1/rotate_absolute
 ros2 action send_goal /turtle1/rotate_absolute turtlesim/action/RotateAbsolute "{theta: 0}"
 ros2 action send_goal /turtle1/rotate_absolute turtlesim/action/RotateAbsolute "{theta: 10}" --feedback # 实时反馈
 ```
+
+# launch
+
+```
+colcon build --packages-select village_li
+source install/setup.zsh
+ros2 launch village_li village.launch.py
+colcon build --packages-select village_wanger
+ros2 param list
+```
+
+# 时光记录仪之rosbag2
+
+```
+ros2 bag record -a
+ros2 bag record /sexy_girl
+ros2 bag -o data.db /sexy_girl
+ros2 bag info rosbag2_2022_11_19-20_16_33_0.db3
+ros2 bag play rosbag2_2022_11_19-20_16_33_0.db3
+ros2 bag play rosbag2_2022_11_19-20_16_33_0.db3 -r 5 # 5倍速播放
+ros2 bag play rosbag2_2022_11_19-20_16_33_0.db3 -l # 循环播放
+ros2 bag play rosbag2_2022_11_19-20_16_33_0.db3 --topics /sexy_girl # 播放单个话题
+ros2 topic echo /sexy_girl
+```

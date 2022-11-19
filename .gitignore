@@ -2,3 +2,4 @@ install/
 build/
 log/
 .vscode/
+rosbag2_*
