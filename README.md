@@ -81,4 +81,29 @@ ros2 param list /li6
 ros2 param get /li6 writer_timer_period
 ros2 param set /li6 writer_timer_period 1
 ros2 topic hz /sexy_girl
+colcon build --packages-select village_wanger
+rqt
+ros2 param get /wang2 novel_price
+ros2 param get /wang2 novel_price 1
+```
+
+# Action
+
+一个Action=三个服务+两个话题
+三个服务：
+* 目标传递服务
+* 结果传递服务
+* 取消执行服务
+
+二个话题：
+* 反馈话题（服务发布、客户端订阅）
+* 状态话题（服务端发布，客户端订阅）
+
+```
+ros2 action list
+ros2 action list -t
+ros2 interface show turtlesim/action/RotateAbsolute   
+ros2 action info /turtle1/rotate_absolute
+ros2 action send_goal /turtle1/rotate_absolute turtlesim/action/RotateAbsolute "{theta: 0}"
+ros2 action send_goal /turtle1/rotate_absolute turtlesim/action/RotateAbsolute "{theta: 10}" --feedback # 实时反馈
 ```

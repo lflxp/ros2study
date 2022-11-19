@@ -21,6 +21,9 @@ private:
   // 书库
   std::queue<std::string> novels_queue;
 
+  // 声明单价为一元钱一张
+  unsigned int novel_price = 1;
+
   // 声明回调组
   rclcpp::CallbackGroup::SharedPtr sell_novels_callback_group;
 
@@ -51,8 +54,10 @@ private:
     // 等待会让当前的线程阻塞
     RCLCPP_INFO(this->get_logger(),"收到一个买书的请求，一共给了%d元",request->money);
 
+    this->get_parameter("novel_price",novel_price);
     // 计算应该返回给客户端的小说数量
-    unsigned int num = (int)request->money/(1.0);
+    // unsigned int num = (int)request->money/(1.0);
+    unsigned int num = (int)request->money/(novel_price);
 
     if(num > novels_queue.size())
     {
@@ -88,6 +93,8 @@ public:
                                                                             std::bind(&SingleDogNode::sell_novel_callback,this,std::placeholders::_1,std::placeholders::_2),
                                                                             rmw_qos_profile_services_default,
                                                                             sell_novels_callback_group);
+
+    this->declare_parameter<std::int64_t>("novel_price", novel_price);
   }
 };
 
