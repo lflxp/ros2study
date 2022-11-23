@@ -1,3 +1,14 @@
+# hello world
+
+```
+ros2 run demo_nodes_py listener
+ros2 run demo_nodes_cpp talker
+```
+
+## docker环境一键测试
+
+> docker run --rm -it osrf/ros:foxy-desktop
+
 # py
 
 操作命令
